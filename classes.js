@@ -74,3 +74,83 @@ class Man {
 }
 
 
+class Animal {
+  constructor(name) {
+    this.speed = 0;
+    this.name = name;
+  }
+
+  run(speed) {
+    this.speed = speed;
+    alert(`${this.name} runs with speed ${this.speed}`)
+  }
+  stop() {
+    this.speed = 0;
+    alert(`${this.name} stands still.`);
+  }
+}
+
+class Rabbit extends Animal {
+  hide() {
+    alert(`${this.name} hides!`)
+  }
+}
+//rabbit inherits animal properties, add its own
+let rabbit = new Rabbit("My animal, my Dune.")
+rabbit.run()
+
+function f(phrase) {
+  return class {
+    sayHi() { alert(phrase) }
+  }
+}
+//can extend functions too
+class RabbitAgain extends f("Hii") { }
+new RabbitAgain().sayHi()
+
+
+class RabbitOveride extends Animal {
+  //overrides Animal stop
+  stop() {
+
+  }
+}
+
+//now let's say we don't want to overrride but build on top of existing functionality. we do this:
+class RabbitSuper extends Animal {
+  //this overrides
+  hide() {
+    alert(`${this.name} rabbit is hidden!`)
+  }
+  //this doesnt. it builds on top of it
+  stop() {
+    //calls the parents stop
+    super.stop()
+
+    //arrow functions take their super from the parent class.
+    setTimeout(() => super.stop())
+    //normal functions throw squiggly, hehe.
+    // setTimeout(function(){super.stop()})
+    //perform whatever thing you want to do right after.
+  }
+}
+
+class RabbitCustomConstructor extends Animal {
+  //this throws an error. you have to provide the parent constructor what it needs first.
+  /*constructor(name, earLength) {
+    this.speed = 0;
+    this.name = name;
+    this.earLength = earLength;
+  }*/
+  //this works
+  constructor(name, earLength) {
+    super(name)
+    this.earLength = earLength
+  }
+}
+
+class StaticUser {
+  static print(){
+    alert("Hello!")
+  }
+}
