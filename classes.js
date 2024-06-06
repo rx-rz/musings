@@ -88,6 +88,10 @@ class Animal {
     this.speed = 0;
     alert(`${this.name} stands still.`);
   }
+
+  static compare(animalA, animalB) {
+    return animalA.speed - animalB.speed
+  }
 }
 
 class Rabbit extends Animal {
@@ -149,8 +153,47 @@ class RabbitCustomConstructor extends Animal {
   }
 }
 
-class StaticUser {
-  static print(){
+class Article {
+  constructor(title, date) {
+    this.title = title;
+    this.date = date;
+  }
+  //static methods are mostly used for functions that belong to
+  //the class as a whole but not any particular object.  
+  static createTodays() {
+    return new this("Today's digest", new Date())
+  }
+  //static properties. new addition though.
+  static publisher = "Ilya Kantor"
+
+  static print() {
     alert("Hello!")
   }
 }
+let article = Article.createTodays()
+//static methods will not work on class instances, just the class itself.
+//article.createTodays()
+//inheritance works on both regular and static methods (looking at you, Animal and Rabbit classes.)
+
+class ObjectAgain {
+  constructor() {
+  }
+}
+class TestAgain extends ObjectAgain {
+  constructor(name) {
+    //without super(), "this" is undefined. needs to be called, always.
+    super()
+    this.name = name;
+  }
+}
+
+class CoffeeMachine {
+  waterAmount = 0;
+  constructor(power) {
+    this.power = power;
+    alert(`Created a coffee-machine, power: ${power}`)
+  }
+}
+//water amount and power are unprotected.
+let coffeeMachine = new CoffeeMachine(200)
+coffeeMachine.waterAmount = 400
