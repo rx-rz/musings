@@ -229,3 +229,31 @@ let cfMach = new ReadOnlyPowerCoffeeMachine(100)
 //it is protected. it can be inherited. it's not private though.
 
 //In terms of OOP, delimiting of the internal interface from the external one is called encapsulation.
+
+//a mixin is a class containing methods that can be used by other classes without a need to inherit from it.
+let sayHiMixin = {
+  sayHi() {
+    alert(`Hello ${this.name}`)
+  },
+  sayBye() {
+    alert(`Bye ${this.name}`)
+  }
+}
+
+class MixinGuy {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+//set the user prototype chain to the mixin object
+Object.assign(User.prototype, sayHiMixin)
+new User("Dude").sayHi()
+
+let inheritanceMixin = {
+  //can inherit other mixins
+  __proto__: sayHiMixin,
+  say(phrase) {
+    alert(phrase)
+  }
+}
