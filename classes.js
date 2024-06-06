@@ -50,11 +50,10 @@ class Hooman {
   constructor(name) {
     this.name = name;
   }
-
+  //getter and setters for class values
   get name() {
     return this._name
   }
-
 
   set name(value) {
     if (value.length < 4) {
@@ -197,3 +196,36 @@ class CoffeeMachine {
 //water amount and power are unprotected.
 let coffeeMachine = new CoffeeMachine(200)
 coffeeMachine.waterAmount = 400
+
+class ProtectedCoffeeMachine {
+  _waterAmount = 0;
+
+  //a setter function for the protected value. access the variable is protected basically.
+  set waterAmount(value) {
+    if (value < 0) {
+      value = 0
+    }
+    this._waterAmount = value
+  }
+  get waterAmount() {
+    return this._waterAmount
+  }
+
+  constructor(power) {
+    this._power = power
+  }
+}
+class ReadOnlyPowerCoffeeMachine {
+  constructor(power) {
+    this._power = power;
+  }
+  get power() {
+    return this._power;
+  }
+}
+
+let cfMach = new ReadOnlyPowerCoffeeMachine(100)
+//you can get cfMach.power but not set it, making it practially read only.
+//it is protected. it can be inherited. it's not private though.
+
+//In terms of OOP, delimiting of the internal interface from the external one is called encapsulation.
