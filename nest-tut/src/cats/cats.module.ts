@@ -1,12 +1,14 @@
 import { Global, Module } from "@nestjs/common";
 import { CatsController } from "./cats.controller";
 import { CatsService } from "./cats.service";
+import { ConfigModule } from "@nestjs/config";
 
 //if you want to make a service available to every module
 //without importing the module in every module
 //use global()
 @Global()
 @Module({
+  imports: [ConfigModule],
   controllers: [CatsController],
   providers: [CatsService],
   //make this available to every other module.

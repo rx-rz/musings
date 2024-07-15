@@ -14,6 +14,7 @@ import {
   Res,
   UseFilters,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { NextFunction } from 'express';
 import { CreateCatDTO } from './cats.dto';
@@ -22,10 +23,12 @@ import { Cat } from './cat.types';
 import { HTTPExceptionFilter } from 'exceptions/http-exception.filter';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { Roles } from 'src/auth/roles.decorator';
+import { LoggingInterceptor } from 'src/auth/logging.interceptor';
 //prefix is declared in the controller decorator. in this case, it's cats.
 @Controller('cats')
 //controller scoped
 @UseFilters(new HTTPExceptionFilter())
+@UseInterceptors(LoggingInterceptor)
 export class CatsController {
   constructor(private catsService: CatsService) {}
   @Get()

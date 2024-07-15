@@ -9,9 +9,18 @@ import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware, logger } from './middleware/logger.middleware';
 import { CatsController } from './cats/cats.controller';
+import { ConfigModule } from '@nestjs/config';
+import configuration from 'config/configuration';
 
 @Module({
-  imports: [CatsModule],
+  imports: [
+    CatsModule,
+    ConfigModule.forRoot({
+      //so you don't have to import it in any other module
+      isGlobal: true,
+      load: [configuration],
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
